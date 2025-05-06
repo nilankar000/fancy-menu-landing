@@ -1,0 +1,3 @@
+
+This folder contains food images for the restaurant menu.
+Replace with actual food images when available.

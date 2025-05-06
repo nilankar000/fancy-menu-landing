@@ -1,4 +1,6 @@
 
+import { motion } from "framer-motion";
+
 interface MenuItemProps {
   name: string;
   nameEn?: string;
@@ -6,13 +8,20 @@ interface MenuItemProps {
   description?: string;
   descriptionEn?: string;
   allergies?: string;
+  imageUrl?: string;
 }
 
-const MenuItem = ({ name, nameEn, price, description, descriptionEn, allergies }: MenuItemProps) => {
+const MenuItem = ({ name, nameEn, price, description, descriptionEn, allergies, imageUrl }: MenuItemProps) => {
   return (
-    <div className="menu-item">
+    <motion.div 
+      className="menu-item backdrop-blur-sm bg-white/10 rounded-lg p-4 border border-white/20 shadow-lg"
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+      whileHover={{ scale: 1.02 }}
+    >
       <div className="flex justify-between items-start gap-4">
-        <div>
+        <div className="flex-grow">
           <h4 className="font-playfair font-bold text-lg text-restaurant-dark">{name}</h4>
           {nameEn && <p className="text-gray-500 italic text-sm">{nameEn}</p>}
           
@@ -32,11 +41,21 @@ const MenuItem = ({ name, nameEn, price, description, descriptionEn, allergies }
           )}
         </div>
         
-        <div className="font-bold text-restaurant-red text-lg min-w-[60px] text-right">
+        {imageUrl && (
+          <div className="w-16 h-16 rounded-md overflow-hidden flex-shrink-0 border border-white/20">
+            <img 
+              src={imageUrl} 
+              alt={name} 
+              className="w-full h-full object-cover"
+            />
+          </div>
+        )}
+        
+        <div className="font-bold text-restaurant-red text-lg min-w-[60px] text-right flex-shrink-0">
           {price}
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
